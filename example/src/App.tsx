@@ -1,10 +1,8 @@
 import React from 'react'
-
-import { ExampleComponent } from 'react-leaf-polls'
-import 'react-leaf-polls/dist/index.css'
+import { LeafPoll } from 'react-leaf-polls'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <LeafPoll type='binary' />
 }
 
 export default App

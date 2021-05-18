@@ -1,10 +1,15 @@
 import * as React from 'react'
-import styles from './styles.module.css'
+import { BinaryPoll } from './components/BinaryPoll'
+import { MultiplePoll } from './components/MultiplePoll'
 
 interface Props {
-  text: string
+  type: string
 }
 
-export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>Example Component: {text}</div>
+export const LeafPoll = ({ type }: Props) => {
+  return type === 'binary' ? (
+    <BinaryPoll text='bin' />
+  ) : (
+    <MultiplePoll text='mul' />
+  )
 }
