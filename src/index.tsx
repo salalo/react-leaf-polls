@@ -1,15 +1,17 @@
 import * as React from 'react'
 import { BinaryPoll } from './components/BinaryPoll'
-import { MultiplePoll } from './components/MultiplePoll'
+import { MultiplePoll, PollProps } from './components/MultiplePoll'
 
-interface Props {
-  type: string
+interface Props extends PollProps {
+  type: 'binary' | 'multiple'
 }
 
-export const LeafPoll = ({ type }: Props) => {
+const LeafPoll = ({ type, question, results, theme }: Props) => {
   return type === 'binary' ? (
     <BinaryPoll text='bin' />
   ) : (
-    <MultiplePoll text='mul' />
+    <MultiplePoll question={question} results={results} theme={theme} />
   )
 }
+
+export { LeafPoll, Props }
