@@ -4,13 +4,13 @@ import styles from './MultiplePoll.module.css'
 import type { Result } from '../types/result'
 import type { Theme } from '../types/theme'
 
-interface PollProps {
+interface MultiplePollProps {
   question?: string
   results: Result[]
   theme?: Theme
 }
 
-const MultiplePoll = ({ question, results, theme }: PollProps) => {
+const MultiplePoll = ({ question, results, theme }: MultiplePollProps) => {
   return (
     <article
       className={styles.container}
@@ -31,4 +31,4 @@ const MultiplePoll = ({ question, results, theme }: PollProps) => {
   )
 }
 
-export { MultiplePoll, PollProps }
+export { MultiplePoll, MultiplePollProps }
