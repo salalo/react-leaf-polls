@@ -12,18 +12,23 @@ interface PollProps {
 
 const MultiplePoll = ({ question, results, theme }: PollProps) => {
   return (
-    <article className={styles.container}>
-      {question && (
-        <h1 className={styles.question} style={{ color: theme?.textColor }}>
-          {question}
-        </h1>
-      )}
+    <article
+      className={styles.container}
+      style={{ alignItems: theme?.alignment }}
+    >
+      {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
 
       {results.map((result, index) => (
-        <p key={index}>{result.text}</p>
+        <div
+          key={index}
+          className={styles.answer}
+          style={{ backgroundColor: theme?.backgroundColor }}
+        >
+          <p style={{ color: theme?.textColor }}>{result.text}</p>
+        </div>
       ))}
     </article>
   )
 }
 
-export { MultiplePoll, Result, PollProps }
+export { MultiplePoll, PollProps }

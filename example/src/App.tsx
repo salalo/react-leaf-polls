@@ -11,9 +11,8 @@ const resData = [
 const themeData = {
   // textColor: 'white',
   // mainColor: 'red',
-  // backgroundColor: 'white',
-  // alignment: 'left',
-  // fontSize: 12
+  // backgroundColor: 'red'
+  // alignment: 'center'
 }
 
 const App = () => {

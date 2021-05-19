@@ -3,7 +3,7 @@ import { BinaryPoll } from './components/BinaryPoll'
 import { MultiplePoll, PollProps } from './components/MultiplePoll'
 
 interface Props extends PollProps {
-  type: string
+  type: 'binary' | 'multiple'
 }
 
 const LeafPoll = ({ type, question, results, theme }: Props) => {
