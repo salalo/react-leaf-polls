@@ -23,13 +23,22 @@ function vote(item?: any) {
 
 const App = () => {
   return (
-    <LeafPoll
-      type='binary'
-      question='How long do you?'
-      results={resData}
-      theme={themeData}
-      onVote={vote}
-    />
+    <>
+      <LeafPoll
+        type='binary'
+        question='How long do you?'
+        results={resData}
+        theme={themeData}
+        onVote={vote}
+      />
+      <LeafPoll
+        type='multiple'
+        question='How long do you?'
+        results={resData}
+        theme={themeData}
+        onVote={vote}
+      />
+    </>
   )
 }
 

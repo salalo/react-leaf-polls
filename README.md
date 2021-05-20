@@ -1,4 +1,6 @@
-# react-leaf-polls
+<!-- # react-leaf-polls -->
+
+# ![](logo.svg)
 
 <b>react-leaf-polls</b> is a set of multiple reusable and customizable poll types.
 

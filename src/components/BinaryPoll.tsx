@@ -9,7 +9,7 @@ interface BinaryPollProps {
   question?: string
   results: Result[]
   theme?: Theme
-  onVote?(item: Result): any
+  onVote?(item: Result): void
 }
 
 function manageVote(results: Result[], item: Result): void {
