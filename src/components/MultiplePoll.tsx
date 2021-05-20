@@ -13,8 +13,7 @@ interface MultiplePollProps {
 
 function manageVote(results: Result[], item: Result, index: number): void {
   item.votes++
-  console.log('vote inside', index, item)
-  // count the %
+  console.log('vote inside', index)
   countPercentage(results)
   // animate
   // change state and reveal data

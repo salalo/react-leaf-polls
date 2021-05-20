@@ -8,7 +8,12 @@ interface Props extends BinaryPollProps, MultiplePollProps {
 
 const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
   return type === 'binary' ? (
-    <BinaryPoll question={question} results={results} theme={theme} />
+    <BinaryPoll
+      question={question}
+      results={results}
+      theme={theme}
+      onVote={onVote}
+    />
   ) : (
     <MultiplePoll
       question={question}

@@ -9,9 +9,28 @@ interface BinaryPollProps {
   question?: string
   results: Result[]
   theme?: Theme
+  onVote?(item: Result): any
 }
 
-const BinaryPoll = ({ question, results, theme }: BinaryPollProps) => {
+function manageVote(results: Result[], item: Result): void {
+  item.votes++
+  countPercentage(results)
+  // animate
+  // change state and reveal data
+}
+
+function countPercentage(results: Result[]): Array<number> {
+  const sum: number = results[0].votes + results[1].votes
+  const percentageValues: number[] = []
+
+  percentageValues[0] = Math.floor((results[0].votes / sum) * 100)
+  percentageValues[1] = Math.floor((results[1].votes / sum) * 100)
+
+  console.log(percentageValues)
+  return percentageValues
+}
+
+const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
   return (
     <article
       className={styles.container}
@@ -23,10 +42,22 @@ const BinaryPoll = ({ question, results, theme }: BinaryPollProps) => {
         className={styles.inner}
         style={{ backgroundColor: theme?.backgroundColor }}
       >
-        <div className={styles.answer}>
+        <div
+          className={styles.answer}
+          onClick={() => {
+            manageVote(results, results[0])
+            onVote && onVote(results[0])
+          }}
+        >
           <p style={{ color: theme?.leftColor }}>{results[0].text}</p>
         </div>
-        <div className={styles.answer}>
+        <div
+          className={styles.answer}
+          onClick={() => {
+            manageVote(results, results[1])
+            onVote && onVote(results[1])
+          }}
+        >
           <p style={{ color: theme?.rightColor }}>{results[1].text}</p>
         </div>
       </div>

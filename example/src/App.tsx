@@ -13,8 +13,8 @@ const themeData = {
   // mainColor: '#00B87B',
   // backgroundColor: 'white',
   // alignment: 'center',
-  // leftColor: '#00B87B',
-  // rightColor: '#FF2E00'
+  leftColor: '#00B87B',
+  rightColor: '#FF2E00'
 }
 
 function vote(item?: any) {
@@ -24,7 +24,7 @@ function vote(item?: any) {
 const App = () => {
   return (
     <LeafPoll
-      type='multiple'
+      type='binary'
       question='How long do you?'
       results={resData}
       theme={themeData}
