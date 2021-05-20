@@ -8,7 +8,7 @@ interface MultiplePollProps {
   question?: string
   results: Result[]
   theme?: Theme
-  onVote(item: Result): any
+  onVote?(item: Result): any
 }
 
 function manageVote(results: Result[], item: Result, index: number): void {
@@ -57,7 +57,7 @@ const MultiplePoll = ({
           style={{ backgroundColor: theme?.backgroundColor }}
           onClick={() => {
             manageVote(results, result, index)
-            onVote(result)
+            onVote && onVote(result)
           }}
         >
           <p style={{ color: theme?.textColor }}>{result.text}</p>
