@@ -24,7 +24,7 @@ function vote(item?: any) {
 const App = () => {
   return (
     <LeafPoll
-      type='multiple'
+      type='binary'
       question='How long do you?'
       results={resData}
       theme={themeData}

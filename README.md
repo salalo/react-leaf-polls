@@ -58,14 +58,15 @@ const App = () => {
 
 ## Component Props
 
-| Prop     |                  Type/Options                  | Required |         Default         | Description                                                                                                                                    |
-| -------- | :--------------------------------------------: | :------: | :---------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| type     |             "multiple" or "binary"             |    ✔     |         binary          | Determines rendered poll type. Binary is recommended for yes-no questions where multiple is "one from many".                                   |
-| question |                     String                     |    ✘     |                         | Question visible on top of the poll. Invisible if not set.                                                                                     |
-| results  | Array of objects with keys "text" and "votes". |    ✔     |                         | Results data is visible to the user after the vote. <br> Should be stored permanently! Usually red and wrote to the persistent storage source. |
-| theme    |       Object <br>More in the table below       |    ✘     | More in the table below | Theme allows you to customize the look and feel of given poll. Depending on poll type there are different options.                             |
+| Prop     |                  Type/Options                  | Required |         Default         | Description                                                                                                                                                                                                                   |
+| -------- | :--------------------------------------------: | :------: | :---------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type     |             "multiple" or "binary"             |    ✔     |         binary          | Determines rendered poll type. Binary is recommended for yes-no questions where multiple is "one from many".                                                                                                                  |
+| question |                     String                     |    ✖     |                         | Question visible on top of the poll. Invisible if not set.                                                                                                                                                                    |
+| results  | Array of objects with keys "text" and "votes". |    ✔     |                         | Results data is visible to the user after the vote. <br> Should be stored permanently! Usually red and wrote to the persistent storage source. <br> Array is modified every time user votes by incrementing the "votes" value |
+| theme    |       Object <br>More in the table below       |    ✖     | More in the table below | Theme allows you to customize the look and feel of given poll. Depending on poll type there are different options.                                                                                                            |
+| onVote   |                    function                    |    ✖     |                         | Callback function running when user picks the answer. Returns the clicked item's object as an argument.                                                                                                                       |
 
-## Theme options
+### Theme options
 
 Theme is an object where no value is mandatory. Colors can get any type of color notations.
 
