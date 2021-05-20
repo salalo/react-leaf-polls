@@ -8,9 +8,41 @@ interface MultiplePollProps {
   question?: string
   results: Result[]
   theme?: Theme
+  onVote(item: Result): any
 }
 
-const MultiplePoll = ({ question, results, theme }: MultiplePollProps) => {
+function manageVote(results: Result[], item: Result, index: number): void {
+  item.votes++
+  console.log('vote inside', index, item)
+  // count the %
+  countPercentage(results)
+  // animate
+  // change state and reveal data
+}
+
+function countPercentage(results: Result[]): Array<number> {
+  const votes: number[] = []
+  let sum: number = 0
+  const percentageValues: number[] = []
+
+  results.map((result) => {
+    votes.push(result.votes)
+    sum += result.votes
+  })
+
+  for (const i in votes) {
+    percentageValues[i] = Math.floor((votes[i] / sum) * 100)
+  }
+
+  return percentageValues
+}
+
+const MultiplePoll = ({
+  question,
+  results,
+  theme,
+  onVote
+}: MultiplePollProps) => {
   return (
     <article
       className={styles.container}
@@ -23,6 +55,10 @@ const MultiplePoll = ({ question, results, theme }: MultiplePollProps) => {
           key={index}
           className={styles.answer}
           style={{ backgroundColor: theme?.backgroundColor }}
+          onClick={() => {
+            manageVote(results, result, index)
+            onVote(result)
+          }}
         >
           <p style={{ color: theme?.textColor }}>{result.text}</p>
         </div>
