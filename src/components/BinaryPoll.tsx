@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import styles from './BinaryPoll.module.css'
 
 import type { Result } from '../types/result'
@@ -12,25 +12,67 @@ interface BinaryPollProps {
   onVote?(item: Result): void
 }
 
-function manageVote(results: Result[], item: Result): void {
+function manageVote(results: Result[], item: Result, index: number): void {
   item.votes++
   countPercentage(results)
-  // animate
-  // change state and reveal data
+  animateAnswers(index, results)
 }
 
-function countPercentage(results: Result[]): Array<number> {
+function animateAnswers(index: number, results: Result[]): void {
+  const answer: HTMLElement | null = document.getElementById(
+    'bin-answer' + index
+  )
+
+  // get not clicked answer element
+  let oppositeIndex: number
+  index === 0 ? (oppositeIndex = 1) : (oppositeIndex = 0)
+  const anotherAnswer: HTMLElement | null = document.getElementById(
+    'bin-answer' + oppositeIndex
+  )
+
+  const percentage: number | undefined = results[index].percentage
+
+  if (answer && anotherAnswer && percentage) {
+    // animate background width
+    answer.animate(
+      [
+        { width: '50%', easing: 'ease-out' },
+        { width: `${percentage}%`, easing: 'ease-out' }
+      ],
+      500
+    )
+    anotherAnswer.animate(
+      [
+        { width: '50%', easing: 'ease-out' },
+        { width: `${100 - percentage}%`, easing: 'ease-out' }
+      ],
+      500
+    )
+    answer.style.width = `${percentage}%`
+    anotherAnswer.style.width = `${100 - percentage}%`
+
+    // animate background color
+    answer.animate(
+      [{ backgroundColor: 'white' }, { backgroundColor: '#efefef' }],
+      200
+    )
+    answer.style.backgroundColor = '#EFEFEF'
+    answer.style.height = 'inherit'
+
+    // remove p margin-top after vote and set fixed height
+  }
+}
+
+function countPercentage(results: Result[]): void {
   const sum: number = results[0].votes + results[1].votes
-  const percentageValues: number[] = []
 
-  percentageValues[0] = Math.floor((results[0].votes / sum) * 100)
-  percentageValues[1] = Math.floor((results[1].votes / sum) * 100)
-
-  console.log(percentageValues)
-  return percentageValues
+  results[0].percentage = Math.round((results[0].votes / sum) * 100)
+  results[1].percentage = Math.round((results[1].votes / sum) * 100)
 }
 
 const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
+  const [voted, setVoted] = useState<Boolean>(false)
+
   return (
     <article
       className={styles.container}
@@ -43,22 +85,40 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
         style={{ backgroundColor: theme?.backgroundColor }}
       >
         <div
+          id='bin-answer0'
           className={styles.answer}
           onClick={() => {
-            manageVote(results, results[0])
-            onVote && onVote(results[0])
+            if (!voted) {
+              setVoted(true)
+              manageVote(results, results[0], 0)
+              onVote && onVote(results[0])
+            }
           }}
         >
           <p style={{ color: theme?.leftColor }}>{results[0].text}</p>
+          {voted && (
+            <span style={{ color: theme?.textColor }}>
+              {results[0].percentage}%
+            </span>
+          )}
         </div>
         <div
+          id='bin-answer1'
           className={styles.answer}
           onClick={() => {
-            manageVote(results, results[1])
-            onVote && onVote(results[1])
+            if (!voted) {
+              setVoted(true)
+              manageVote(results, results[1], 1)
+              onVote && onVote(results[1])
+            }
           }}
         >
           <p style={{ color: theme?.rightColor }}>{results[1].text}</p>
+          {voted && (
+            <span style={{ color: theme?.textColor }}>
+              {results[1].percentage}%
+            </span>
+          )}
         </div>
       </div>
     </article>
