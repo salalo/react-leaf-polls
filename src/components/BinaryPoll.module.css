@@ -6,6 +6,7 @@
 }
 .inner {
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
@@ -14,20 +15,30 @@
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
 }
 .answer {
-  width: 50%;
   height: 100%;
+  width: 50%;
   padding: 5% 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-transform: uppercase;
 }
 .answer:first-child {
-  border-right: 0.01rem solid #eeeeee;
+  border-right: 0.01rem solid #efefef;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+.answer:last-child {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 .answer p {
   font-weight: bold;
-  text-transform: uppercase;
   font-size: 1.5rem;
+}
+.answer span {
+  font-size: 2.25rem;
 }
 .answer:hover {
   cursor: pointer;

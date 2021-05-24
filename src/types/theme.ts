@@ -4,5 +4,6 @@ export interface Theme {
   rightColor?: string // binary poll only
   textColor?: string
   backgroundColor?: string
-  alignment?: 'start' | 'center' | 'end'
+  // alignment?: 'start' | 'center' | 'end'
+  alignment?: string
 }
