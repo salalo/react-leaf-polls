@@ -14,9 +14,30 @@ interface MultiplePollProps {
 function manageVote(results: Result[], item: Result, index: number): void {
   item.votes++
   countPercentage(results)
-  console.log(index, results)
-  // animate
-  // change state and reveal data
+  animateAnswers(index, results)
+}
+
+function animateAnswers(index: number, results: Result[]): void {
+  const answer: HTMLElement | null = document.getElementById(
+    'mul-answer' + index
+  )
+
+  console.log(results)
+  if (answer) {
+    answer.animate(
+      [
+        { width: 0, easing: 'ease-out', backgroundColor: 'white' },
+        {
+          width: `${results[index].percentage}%`,
+          easing: 'ease-out',
+          backgroundColor: '#00B87B'
+        }
+      ],
+      500
+    )
+    answer.style.width = `${results[index].percentage}%`
+    answer.style.backgroundColor = '#00B87B'
+  }
 }
 
 function countPercentage(results: Result[]): void {
@@ -56,7 +77,9 @@ const MultiplePoll = ({
             onVote && onVote(result)
           }}
         >
-          <p style={{ color: theme?.textColor }}>{result.text}</p>
+          <div id={'mul-answer' + index} className={styles.answerInner}>
+            <p style={{ color: theme?.textColor }}>{result.text}</p>
+          </div>
         </div>
       ))}
     </article>
