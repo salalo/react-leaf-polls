@@ -3,8 +3,8 @@ import { LeafPoll } from 'react-leaf-polls'
 import 'react-leaf-polls/dist/index.css'
 
 const resData = [
-  { text: 'YES', votes: 5 },
-  { text: 'NO', votes: 9 }
+  { text: 'YES', votes: 1 },
+  { text: 'NO', votes: 100 }
   // { text: 'Answer3', votes: 3 }
 ]
 

@@ -36,9 +36,13 @@
 .answer p {
   font-weight: bold;
   font-size: 1.5rem;
+  z-index: 100;
 }
 .answer span {
   font-size: 2.25rem;
+  z-index: 100;
+  margin-bottom: 1rem;
+  margin-top: -0.5rem;
 }
 .answer:hover {
   cursor: pointer;

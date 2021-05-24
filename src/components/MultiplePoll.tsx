@@ -34,40 +34,37 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
     answerBuffer && answers.push(answerBuffer)
   }
 
-  if (answers) {
-    // animate clicked answer
-    answers[index].animate(
+  // animate clicked answer
+  answers[index].animate(
+    [
+      { width: 0, easing: 'ease-out', backgroundColor: 'white' },
+      {
+        width: `${results[index].percentage}%`,
+        easing: 'ease-out',
+        backgroundColor: `${theme?.mainColor}`
+      }
+    ],
+    500
+  )
+  answers[index].style.width = `${results[index].percentage}%`
+  if (theme?.mainColor) answers[index].style.backgroundColor = theme?.mainColor
+
+  // animate rest of answers (not clicked)
+  restOfAnswersIndexes.map((i) => {
+    answers[i].animate(
       [
         { width: 0, easing: 'ease-out', backgroundColor: 'white' },
         {
-          width: `${results[index].percentage}%`,
+          width: `${results[i].percentage}%`,
           easing: 'ease-out',
-          backgroundColor: `${theme && theme.mainColor}`
+          backgroundColor: '#efefef'
         }
       ],
       500
     )
-    answers[index].style.width = `${results[index].percentage}%`
-    if (theme && theme.mainColor)
-      answers[index].style.backgroundColor = theme.mainColor
-
-    // animate rest of answers (not clicked)
-    restOfAnswersIndexes.map((i) => {
-      answers[i].animate(
-        [
-          { width: 0, easing: 'ease-out', backgroundColor: 'white' },
-          {
-            width: `${results[i].percentage}%`,
-            easing: 'ease-out',
-            backgroundColor: '#efefef'
-          }
-        ],
-        500
-      )
-      answers[i].style.width = `${results[i].percentage}%`
-      answers[i].style.backgroundColor = '#efefef'
-    })
-  }
+    answers[i].style.width = `${results[i].percentage}%`
+    answers[i].style.backgroundColor = '#efefef'
+  })
 }
 
 function countPercentage(results: Result[]): void {

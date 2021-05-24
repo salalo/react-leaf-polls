@@ -57,9 +57,14 @@ function animateAnswers(index: number, results: Result[]): void {
       200
     )
     answer.style.backgroundColor = '#EFEFEF'
-    answer.style.height = 'inherit'
 
-    // remove p margin-top after vote and set fixed height
+    // set height to the same value before and after the vote
+    const height: number = answer.offsetHeight
+    answer.style.padding = '0'
+    anotherAnswer.style.padding = '0'
+
+    const inner: HTMLElement | null = document.getElementById('bin-inner')
+    if (inner) inner.style.height = `${height}px`
   }
 }
 
@@ -81,6 +86,7 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
       {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
 
       <div
+        id='bin-inner'
         className={styles.inner}
         style={{ backgroundColor: theme?.backgroundColor }}
       >
