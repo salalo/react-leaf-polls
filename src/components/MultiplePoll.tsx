@@ -11,13 +11,18 @@ interface MultiplePollProps {
   onVote?(item: Result): void
 }
 
-function manageVote(results: Result[], item: Result, index: number): void {
+function manageVote(
+  results: Result[],
+  item: Result,
+  index: number,
+  theme?: Theme
+): void {
   item.votes++
   countPercentage(results)
-  animateAnswers(index, results)
+  animateAnswers(index, results, theme)
 }
 
-function animateAnswers(index: number, results: Result[]): void {
+function animateAnswers(index: number, results: Result[], theme?: Theme): void {
   const answers: HTMLElement[] = []
   const restOfAnswersIndexes: number[] = []
 
@@ -37,13 +42,14 @@ function animateAnswers(index: number, results: Result[]): void {
         {
           width: `${results[index].percentage}%`,
           easing: 'ease-out',
-          backgroundColor: '#00B87B'
+          backgroundColor: `${theme && theme.mainColor}`
         }
       ],
       500
     )
     answers[index].style.width = `${results[index].percentage}%`
-    answers[index].style.backgroundColor = '#00B87B'
+    if (theme && theme.mainColor)
+      answers[index].style.backgroundColor = theme.mainColor
 
     // animate rest of answers (not clicked)
     restOfAnswersIndexes.map((i) => {
@@ -101,7 +107,7 @@ const MultiplePoll = ({
           onClick={() => {
             if (!voted) {
               setVoted(true)
-              manageVote(results, result, index)
+              manageVote(results, result, index, theme)
               onVote && onVote(result)
             }
           }}
