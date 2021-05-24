@@ -13,16 +13,15 @@ interface MultiplePollProps {
 
 function manageVote(results: Result[], item: Result, index: number): void {
   item.votes++
-  console.log('vote inside', index)
   countPercentage(results)
+  console.log(index, results)
   // animate
   // change state and reveal data
 }
 
-function countPercentage(results: Result[]): Array<number> {
+function countPercentage(results: Result[]): void {
   const votes: number[] = []
   let sum: number = 0
-  const percentageValues: number[] = []
 
   results.map((result) => {
     votes.push(result.votes)
@@ -30,10 +29,8 @@ function countPercentage(results: Result[]): Array<number> {
   })
 
   for (const i in votes) {
-    percentageValues[i] = Math.floor((votes[i] / sum) * 100)
+    results[i].percentage = Math.floor((votes[i] / sum) * 100)
   }
-
-  return percentageValues
 }
 
 const MultiplePoll = ({
