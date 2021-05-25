@@ -9,9 +9,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/WojciechSala/react-leaf-polls/blob/master/LICENSE)
 
-## Demo
-
-Here you can see hosted content of example directory.
+# ![](binPoll.gif) ![](mulPoll.gif)
 
 ## Install
 
