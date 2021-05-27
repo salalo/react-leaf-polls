@@ -101,12 +101,14 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
             }
           }}
         >
-          <p style={{ color: theme?.leftColor }}>{results[0].text}</p>
-          {voted && (
-            <span style={{ color: theme?.textColor }}>
-              {results[0].percentage}%
-            </span>
-          )}
+          <div className={styles.answerContainer}>
+            <p style={{ color: theme?.leftColor }}>{results[0].text}</p>
+            {voted && (
+              <span style={{ color: theme?.textColor }}>
+                {results[0].percentage}%
+              </span>
+            )}
+          </div>
         </div>
         <div
           id='bin-answer1'
@@ -119,12 +121,14 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
             }
           }}
         >
-          <p style={{ color: theme?.rightColor }}>{results[1].text}</p>
-          {voted && (
-            <span style={{ color: theme?.textColor }}>
-              {results[1].percentage}%
-            </span>
-          )}
+          <div className={styles.answerContainer}>
+            <p style={{ color: theme?.rightColor }}>{results[1].text}</p>
+            {voted && (
+              <span style={{ color: theme?.textColor }}>
+                {results[1].percentage}%
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </article>

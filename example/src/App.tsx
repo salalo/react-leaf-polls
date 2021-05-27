@@ -2,10 +2,10 @@ import React from 'react'
 import { LeafPoll } from 'react-leaf-polls'
 import 'react-leaf-polls/dist/index.css'
 
-// const resData = [
-//   { text: 'YES', votes: 4 },
-//   { text: 'NO', votes: 7 }
-// ]
+const resData = [
+  { text: 'YES', votes: 3 },
+  { text: 'NO', votes: 100 }
+]
 
 const resData2 = [
   { text: 'React', votes: 9 },
@@ -34,12 +34,13 @@ const App = () => {
         width: '500px'
       }}
     >
-      {/* <LeafPoll type='binary'
+      <LeafPoll
+        type='binary'
         question='Do you like Angular?'
         results={resData}
         theme={themeData}
         onVote={vote}
-      /> */}
+      />
       <LeafPoll
         type='multiple'
         question='Pick your favorite framework.'

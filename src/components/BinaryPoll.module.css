@@ -19,10 +19,15 @@
   width: 50%;
   padding: 5% 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
+}
+.answerContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 .answer:first-child {
   border-right: 0.01rem solid #efefef;
@@ -33,16 +38,14 @@
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
-.answer p {
+.answerContainer p {
   font-weight: bold;
   font-size: 1.5rem;
   z-index: 100;
 }
-.answer span {
+.answerContainer span {
   font-size: 2.25rem;
   z-index: 100;
-  margin-bottom: 1rem;
-  margin-top: -0.5rem;
 }
 .answer:hover {
   cursor: pointer;
