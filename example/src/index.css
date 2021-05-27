@@ -5,11 +5,4 @@ body {
   font-family: 'Manrope', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* display: flex; */
-}
-
-div {
-  /* max-width: 500px; */
-  /* margin: 0 auto; */
 }

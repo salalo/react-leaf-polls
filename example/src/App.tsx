@@ -14,7 +14,7 @@ const resData2 = [
 ]
 
 const themeData = {
-  // textColor: '',
+  textColor: '#19181f',
   mainColor: '#00B87B',
   backgroundColor: 'white',
   alignment: 'center',

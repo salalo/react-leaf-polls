@@ -15,10 +15,13 @@
 }
 .answerInner {
   width: 0;
+  left: 0;
+  margin: 0;
   height: 100%;
   /* border-radius: 0.5rem; */
   border-top-left-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
+  text-align: left;
 }
 .answerInner p {
   margin: 0;
