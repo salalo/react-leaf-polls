@@ -4,9 +4,8 @@
 
 <b>react-leaf-polls</b> is a set of multiple reusable and customizable poll types.
 
-[![NPM Version](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/react-leaf-polls)
-[![NPM Downloads](https://img.shields.io/npm/dw/npm.svg)](https://www.npmjs.com/package/react-leaf-polls)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/WojciechSala/react-leaf-polls/blob/master/LICENSE)
 
 # ![](binPoll.gif) ![](mulPoll.gif)
