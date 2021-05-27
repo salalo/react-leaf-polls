@@ -28,6 +28,7 @@ yarn add react-leaf-polls
 
 ```tsx
 import { LeafPoll } from 'react-leaf-polls'
+import 'react-leaf-polls/dist/index.css'
 
 // Persistent data array (typically fetched from the server)
 const resData = [
