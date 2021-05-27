@@ -11,6 +11,22 @@
   "engines": {
     "node": ">=10"
   },
+  "keywords": [
+    "react",
+    "poll",
+    "polls",
+    "polling",
+    "leaf",
+    "ui",
+    "form",
+    "forms",
+    "vote",
+    "voting",
+    "survey",
+    "custom",
+    "component",
+    "react-component"
+  ],
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
