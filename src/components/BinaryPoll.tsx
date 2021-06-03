@@ -24,8 +24,7 @@ function animateAnswers(index: number, results: Result[]): void {
   )
 
   // get not clicked answer element
-  let oppositeIndex: number
-  index === 0 ? (oppositeIndex = 1) : (oppositeIndex = 0)
+  const oppositeIndex: number = index === 0 ? 1 : 0
   const anotherAnswer: HTMLElement | null = document.getElementById(
     'bin-answer' + oppositeIndex
   )
@@ -76,7 +75,7 @@ function countPercentage(results: Result[]): void {
 }
 
 const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
-  const [voted, setVoted] = useState<Boolean>(false)
+  const [voted, setVoted] = useState<boolean>(false)
 
   return (
     <article

@@ -87,7 +87,7 @@ const MultiplePoll = ({
   theme,
   onVote
 }: MultiplePollProps) => {
-  const [voted, setVoted] = useState<Boolean>(false)
+  const [voted, setVoted] = useState<boolean>(false)
 
   return (
     <article
