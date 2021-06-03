@@ -26,7 +26,7 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
   const answers: HTMLElement[] = []
   const restOfAnswersIndexes: number[] = []
 
-  for (const i in results) {
+  for (let i = 0; i < results.length; i++) {
     if (parseInt(i) !== index) restOfAnswersIndexes.push(parseInt(i))
     const answerBuffer: HTMLElement | null = document.getElementById(
       'mul-answer' + i
@@ -76,7 +76,7 @@ function countPercentage(results: Result[]): void {
     sum += result.votes
   })
 
-  for (const i in votes) {
+  for (let i = 0; i < votes.length; i++) {
     results[i].percentage = Math.floor((votes[i] / sum) * 100)
   }
 }
