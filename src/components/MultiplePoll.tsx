@@ -27,9 +27,9 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
   const restOfAnswersIndexes: number[] = []
 
   for (let i = 0; i < results.length; i++) {
-    if (parseInt(i) !== index) restOfAnswersIndexes.push(parseInt(i))
+    if (i !== index) restOfAnswersIndexes.push(i)
     const answerBuffer: HTMLElement | null = document.getElementById(
-      'mul-answer' + i
+      'mul-answer' + i.toString()
     )
     answerBuffer && answers.push(answerBuffer)
   }
@@ -50,7 +50,7 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
   if (theme?.mainColor) answers[index].style.backgroundColor = theme?.mainColor
 
   // animate rest of answers (not clicked)
-  restOfAnswersIndexes.map((i) => {
+  for (const i of restOfAnswersIndexes) {
     answers[i].animate(
       [
         { width: 0, easing: 'ease-out', backgroundColor: 'white' },
@@ -64,17 +64,17 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
     )
     answers[i].style.width = `${results[i].percentage}%`
     answers[i].style.backgroundColor = '#efefef'
-  })
+  }
 }
 
 function countPercentage(results: Result[]): void {
   const votes: number[] = []
   let sum: number = 0
 
-  results.map((result) => {
+  for (const result of results) {
     votes.push(result.votes)
     sum += result.votes
-  })
+  }
 
   for (let i = 0; i < votes.length; i++) {
     results[i].percentage = Math.floor((votes[i] / sum) * 100)
