@@ -102,6 +102,7 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
       >
         <div
           ref={answer0}
+          role='button'
           className={styles.answer}
           onClick={() => {
             if (!voted) {
@@ -122,6 +123,7 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
         </div>
         <div
           ref={answer1}
+          role='button'
           className={styles.answer}
           onClick={() => {
             if (!voted) {

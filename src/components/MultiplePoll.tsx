@@ -112,6 +112,7 @@ const MultiplePoll = ({
       {results.map((result, index) => (
         <div
           key={index}
+          role='button'
           className={styles.answer}
           style={{ backgroundColor: theme?.backgroundColor }}
           onClick={() => {
@@ -122,11 +123,7 @@ const MultiplePoll = ({
             }
           }}
         >
-          <div
-            id={'mul-answer' + index}
-            ref={answerRefs.current[index]}
-            className={styles.answerInner}
-          >
+          <div ref={answerRefs.current[index]} className={styles.answerInner}>
             <p style={{ color: theme?.textColor }}>{result.text}</p>
           </div>
           {voted && (

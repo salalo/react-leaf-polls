@@ -25,4 +25,4 @@ const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
   )
 }
 
-export { LeafPoll, Props, Result }
+export { LeafPoll, Result }
