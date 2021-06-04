@@ -1,4 +1,10 @@
-import React, { useState } from 'react'
+import React, {
+  useState,
+  useRef,
+  createRef,
+  MutableRefObject,
+  RefObject
+} from 'react'
 import styles from './MultiplePoll.module.css'
 
 import type { Result } from '../types/result'
@@ -15,22 +21,26 @@ function manageVote(
   results: Result[],
   item: Result,
   index: number,
+  refs: MutableRefObject<RefObject<HTMLDivElement>[]>,
   theme?: Theme
 ): void {
   item.votes++
   countPercentage(results)
-  animateAnswers(index, results, theme)
+  animateAnswers(index, results, refs, theme)
 }
 
-function animateAnswers(index: number, results: Result[], theme?: Theme): void {
+function animateAnswers(
+  index: number,
+  results: Result[],
+  refs: MutableRefObject<RefObject<HTMLDivElement>[]>,
+  theme?: Theme
+): void {
   const answers: HTMLElement[] = []
   const restOfAnswersIndexes: number[] = []
 
-  for (const i in results) {
-    if (parseInt(i) !== index) restOfAnswersIndexes.push(parseInt(i))
-    const answerBuffer: HTMLElement | null = document.getElementById(
-      'mul-answer' + i
-    )
+  for (let i = 0; i < results.length; i++) {
+    if (i !== index) restOfAnswersIndexes.push(i)
+    const answerBuffer: HTMLElement | null = refs.current[i].current
     answerBuffer && answers.push(answerBuffer)
   }
 
@@ -50,7 +60,7 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
   if (theme?.mainColor) answers[index].style.backgroundColor = theme?.mainColor
 
   // animate rest of answers (not clicked)
-  restOfAnswersIndexes.map((i) => {
+  for (const i of restOfAnswersIndexes) {
     answers[i].animate(
       [
         { width: 0, easing: 'ease-out', backgroundColor: 'white' },
@@ -64,19 +74,19 @@ function animateAnswers(index: number, results: Result[], theme?: Theme): void {
     )
     answers[i].style.width = `${results[i].percentage}%`
     answers[i].style.backgroundColor = '#efefef'
-  })
+  }
 }
 
 function countPercentage(results: Result[]): void {
   const votes: number[] = []
   let sum: number = 0
 
-  results.map((result) => {
+  for (const result of results) {
     votes.push(result.votes)
     sum += result.votes
-  })
+  }
 
-  for (const i in votes) {
+  for (let i = 0; i < votes.length; i++) {
     results[i].percentage = Math.floor((votes[i] / sum) * 100)
   }
 }
@@ -87,7 +97,10 @@ const MultiplePoll = ({
   theme,
   onVote
 }: MultiplePollProps) => {
-  const [voted, setVoted] = useState<Boolean>(false)
+  const [voted, setVoted] = useState<boolean>(false)
+  const answerRefs = useRef<RefObject<HTMLDivElement>[]>(
+    results.map(() => createRef<HTMLDivElement>())
+  )
 
   return (
     <article
@@ -104,12 +117,16 @@ const MultiplePoll = ({
           onClick={() => {
             if (!voted) {
               setVoted(true)
-              manageVote(results, result, index, theme)
+              manageVote(results, result, index, answerRefs, theme)
               onVote && onVote(result)
             }
           }}
         >
-          <div id={'mul-answer' + index} className={styles.answerInner}>
+          <div
+            id={'mul-answer' + index}
+            ref={answerRefs.current[index]}
+            className={styles.answerInner}
+          >
             <p style={{ color: theme?.textColor }}>{result.text}</p>
           </div>
           {voted && (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, RefObject } from 'react'
 import styles from './BinaryPoll.module.css'
 
 import type { Result } from '../types/result'
@@ -12,23 +12,27 @@ interface BinaryPollProps {
   onVote?(item: Result): void
 }
 
-function manageVote(results: Result[], item: Result, index: number): void {
+function manageVote(
+  results: Result[],
+  item: Result,
+  index: number,
+  refs: RefObject<HTMLDivElement>[]
+): void {
   item.votes++
   countPercentage(results)
-  animateAnswers(index, results)
+  animateAnswers(index, results, refs)
 }
 
-function animateAnswers(index: number, results: Result[]): void {
-  const answer: HTMLElement | null = document.getElementById(
-    'bin-answer' + index
-  )
+function animateAnswers(
+  index: number,
+  results: Result[],
+  refs: RefObject<HTMLDivElement>[]
+): void {
+  const answer: HTMLElement | null = refs[index].current
 
   // get not clicked answer element
-  let oppositeIndex: number
-  index === 0 ? (oppositeIndex = 1) : (oppositeIndex = 0)
-  const anotherAnswer: HTMLElement | null = document.getElementById(
-    'bin-answer' + oppositeIndex
-  )
+  const oppositeIndex: number = index === 0 ? 1 : 0
+  const anotherAnswer: HTMLElement | null = refs[oppositeIndex].current
 
   const percentage: number | undefined = results[index].percentage
 
@@ -63,7 +67,7 @@ function animateAnswers(index: number, results: Result[]): void {
     answer.style.padding = '0'
     anotherAnswer.style.padding = '0'
 
-    const inner: HTMLElement | null = document.getElementById('bin-inner')
+    const inner: HTMLElement | null = refs[0].current
     if (inner) inner.style.height = `${height}px`
   }
 }
@@ -76,7 +80,15 @@ function countPercentage(results: Result[]): void {
 }
 
 const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
-  const [voted, setVoted] = useState<Boolean>(false)
+  const [voted, setVoted] = useState<boolean>(false)
+  const answersContainer = useRef<HTMLDivElement>(null)
+  const answer0 = useRef<HTMLDivElement>(null)
+  const answer1 = useRef<HTMLDivElement>(null)
+  const allRefs: RefObject<HTMLDivElement>[] = [
+    answer0,
+    answer1,
+    answersContainer
+  ]
 
   return (
     <article
@@ -86,17 +98,17 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
       {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
 
       <div
-        id='bin-inner'
+        ref={answersContainer}
         className={styles.inner}
         style={{ backgroundColor: theme?.backgroundColor }}
       >
         <div
-          id='bin-answer0'
+          ref={answer0}
           className={styles.answer}
           onClick={() => {
             if (!voted) {
               setVoted(true)
-              manageVote(results, results[0], 0)
+              manageVote(results, results[0], 0, allRefs)
               onVote && onVote(results[0])
             }
           }}
@@ -111,12 +123,12 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
           </div>
         </div>
         <div
-          id='bin-answer1'
+          ref={answer1}
           className={styles.answer}
           onClick={() => {
             if (!voted) {
               setVoted(true)
-              manageVote(results, results[1], 1)
+              manageVote(results, results[1], 1, allRefs)
               onVote && onVote(results[1])
             }
           }}
