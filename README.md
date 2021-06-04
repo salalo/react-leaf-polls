@@ -26,8 +26,8 @@ yarn add react-leaf-polls
 
 ## Usage
 
-```tsx
-import { LeafPoll } from 'react-leaf-polls'
+```ts
+import { LeafPoll, Result } from 'react-leaf-polls'
 import 'react-leaf-polls/dist/index.css'
 
 // Persistent data array (typically fetched from the server)
@@ -37,11 +37,17 @@ const resData = [
   { text: 'Answer 3', votes: 0 }
 ]
 
+// Object keys may vary on the poll type (see the 'Theme options' table below)
 const customTheme = {
   textColor: 'black',
   mainColor: '#00B87B',
   backgroundColor: 'rgb(255,255,255)',
   alignment: 'center'
+}
+
+function vote(item: Result, results: Result[]) {
+  // Here you probably want to manage
+  // and return the modified data to the server.
 }
 
 const App = () => {
@@ -51,6 +57,7 @@ const App = () => {
       question='What you wanna ask?'
       results={resData}
       theme={customTheme}
+      onVote={vote}
     />
   )
 }
@@ -64,7 +71,7 @@ const App = () => {
 | question |                     String                     |    ✖     |                         | Question visible on top of the poll. Invisible if not set.                                                                                                                                                                                                     |
 | results  | Array of objects with keys "text" and "votes". |    ✔     |                         | Results data is visible to the user after the vote. <br> Should be stored permanently! Usually red and wrote to the persistent storage source. <br> Array is modified every time user votes by incrementing the "votes" value and adding "percentage" element. |
 | theme    |       Object <br>More in the table below       |    ✖     | More in the table below | Theme allows you to customize the look and feel of given poll. Depending on poll type there are different options.                                                                                                                                             |
-| onVote   |                    function                    |    ✖     |                         | Callback function running when user picks the answer. Returns the clicked item's object as an argument.                                                                                                                                                        |
+| onVote   |                    function                    |    ✖     |                         | Callback function running when user picks the answer. Returns the clicked item's and whole results modified object as arguments.                                                                                                                               |
 
 ### Theme options
 

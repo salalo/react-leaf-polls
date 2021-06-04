@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { BinaryPoll, BinaryPollProps } from './components/BinaryPoll'
 import { MultiplePoll, MultiplePollProps } from './components/MultiplePoll'
+import { Result } from './types/result'
 
 interface Props extends BinaryPollProps, MultiplePollProps {
   type: 'binary' | 'multiple'
@@ -24,4 +25,4 @@ const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
   )
 }
 
-export { LeafPoll, Props }
+export { LeafPoll, Props, Result }

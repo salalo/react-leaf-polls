@@ -14,7 +14,7 @@ interface MultiplePollProps {
   question?: string
   results: Result[]
   theme?: Theme
-  onVote?(item: Result): void
+  onVote?(item: Result, results: Result[]): void
 }
 
 function manageVote(
@@ -118,7 +118,7 @@ const MultiplePoll = ({
             if (!voted) {
               setVoted(true)
               manageVote(results, result, index, answerRefs, theme)
-              onVote && onVote(result)
+              onVote?.(result, results)
             }
           }}
         >
