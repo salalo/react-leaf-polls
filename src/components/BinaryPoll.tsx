@@ -65,6 +65,10 @@ function animateAnswers(
     answer.style.padding = '0'
     anotherAnswer.style.padding = '0'
 
+    // disable hovering after the animation
+    answer.classList.remove(styles.answer_hover)
+    anotherAnswer.classList.remove(styles.answer_hover)
+
     const inner: HTMLElement | null = refs[0].current
     if (inner) inner.style.height = `${height}px`
   }
@@ -103,7 +107,7 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
         <div
           ref={answer0}
           role='button'
-          className={styles.answer}
+          className={styles.answer_hover + ' ' + styles.answer}
           onClick={() => {
             if (!voted) {
               setVoted(true)
@@ -124,7 +128,7 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
         <div
           ref={answer1}
           role='button'
-          className={styles.answer}
+          className={styles.answer_hover + ' ' + styles.answer}
           onClick={() => {
             if (!voted) {
               setVoted(true)

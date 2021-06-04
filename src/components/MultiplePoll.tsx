@@ -113,8 +113,12 @@ const MultiplePoll = ({
         <div
           key={index}
           role='button'
-          className={styles.answer}
-          style={{ backgroundColor: theme?.backgroundColor }}
+          className={
+            voted ? styles.answer : styles.answer_hover + ' ' + styles.answer
+          }
+          style={{
+            backgroundColor: theme?.backgroundColor
+          }}
           onClick={() => {
             if (!voted) {
               setVoted(true)

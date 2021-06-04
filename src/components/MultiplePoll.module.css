@@ -12,6 +12,13 @@
   -moz-box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.1);
   position: relative;
+  transition: background-color 0.3s ease-out;
+}
+.answer_hover:hover {
+  background-color: #efefef !important;
+}
+.answer:hover {
+  cursor: pointer;
 }
 .answerInner {
   width: 0;
@@ -33,7 +40,4 @@
   right: 1rem;
   top: 25%;
   font-size: 1.2rem;
-}
-.answer:hover {
-  cursor: pointer;
 }
