@@ -9,7 +9,7 @@ interface BinaryPollProps {
   question?: string
   results: Result[]
   theme?: Theme
-  onVote?(item: Result): void
+  onVote?(item: Result, results: Result[]): void
 }
 
 function manageVote(
@@ -29,11 +29,9 @@ function animateAnswers(
   refs: RefObject<HTMLDivElement>[]
 ): void {
   const answer: HTMLElement | null = refs[index].current
-
   // get not clicked answer element
   const oppositeIndex: number = index === 0 ? 1 : 0
   const anotherAnswer: HTMLElement | null = refs[oppositeIndex].current
-
   const percentage: number | undefined = results[index].percentage
 
   if (answer && anotherAnswer && percentage) {
@@ -66,6 +64,10 @@ function animateAnswers(
     const height: number = answer.offsetHeight
     answer.style.padding = '0'
     anotherAnswer.style.padding = '0'
+
+    // disable hovering after the animation
+    answer.classList.remove(styles.answer_hover)
+    anotherAnswer.classList.remove(styles.answer_hover)
 
     const inner: HTMLElement | null = refs[0].current
     if (inner) inner.style.height = `${height}px`
@@ -104,12 +106,13 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
       >
         <div
           ref={answer0}
-          className={styles.answer}
+          role='button'
+          className={styles.answer_hover + ' ' + styles.answer}
           onClick={() => {
             if (!voted) {
               setVoted(true)
               manageVote(results, results[0], 0, allRefs)
-              onVote && onVote(results[0])
+              onVote?.(results[0], results)
             }
           }}
         >
@@ -124,12 +127,13 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
         </div>
         <div
           ref={answer1}
-          className={styles.answer}
+          role='button'
+          className={styles.answer_hover + ' ' + styles.answer}
           onClick={() => {
             if (!voted) {
               setVoted(true)
               manageVote(results, results[1], 1, allRefs)
-              onVote && onVote(results[1])
+              onVote?.(results[1], results)
             }
           }}
         >

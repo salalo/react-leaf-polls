@@ -14,7 +14,7 @@ interface MultiplePollProps {
   question?: string
   results: Result[]
   theme?: Theme
-  onVote?(item: Result): void
+  onVote?(item: Result, results: Result[]): void
 }
 
 function manageVote(
@@ -112,21 +112,22 @@ const MultiplePoll = ({
       {results.map((result, index) => (
         <div
           key={index}
-          className={styles.answer}
-          style={{ backgroundColor: theme?.backgroundColor }}
+          role='button'
+          className={
+            voted ? styles.answer : styles.answer_hover + ' ' + styles.answer
+          }
+          style={{
+            backgroundColor: theme?.backgroundColor
+          }}
           onClick={() => {
             if (!voted) {
               setVoted(true)
               manageVote(results, result, index, answerRefs, theme)
-              onVote && onVote(result)
+              onVote?.(result, results)
             }
           }}
         >
-          <div
-            id={'mul-answer' + index}
-            ref={answerRefs.current[index]}
-            className={styles.answerInner}
-          >
+          <div ref={answerRefs.current[index]} className={styles.answerInner}>
             <p style={{ color: theme?.textColor }}>{result.text}</p>
           </div>
           {voted && (

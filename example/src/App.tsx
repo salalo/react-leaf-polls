@@ -1,5 +1,5 @@
 import React from 'react'
-import { LeafPoll } from 'react-leaf-polls'
+import { LeafPoll, Result } from 'react-leaf-polls'
 import 'react-leaf-polls/dist/index.css'
 
 const resData = [
@@ -22,8 +22,8 @@ const themeData = {
   rightColor: '#FF2E00'
 }
 
-function vote(item?: any) {
-  console.log('voted', item)
+function vote(item: Result, results: Result[]) {
+  console.log('voted', item, results)
 }
 
 const App = () => {
