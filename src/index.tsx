@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { BinaryPoll, BinaryPollProps } from './components/BinaryPoll'
-import { MultiplePoll, MultiplePollProps } from './components/MultiplePoll'
+import { BinaryPoll, BinaryPollProps } from './components/BinaryPoll/BinaryPoll'
+import {
+  MultiplePoll,
+  MultiplePollProps
+} from './components/MultiplePoll/MultiplePoll'
 import { Result } from './types/result'
 
 interface Props extends BinaryPollProps, MultiplePollProps {
