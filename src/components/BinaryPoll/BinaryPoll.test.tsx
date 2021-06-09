@@ -3,42 +3,44 @@ import { BinaryPoll } from './BinaryPoll'
 import * as utils from './utils'
 
 import 'jest-enzyme'
-import { shallow, configure } from 'enzyme'
+import { shallow, configure, ShallowWrapper } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 configure({ adapter: new Adapter() })
 
 describe('binary poll specs', () => {
-  // countPercentage()
-  // % key exists in the object
-  // % key stores the right value?
-  // animateAnswers()
-  // % value renders and is equal to the object value
-  // background color of clicked answer changes
-  // width is equal to % value
-  // height does not change
-  it('simulates the click on the answer', () => {
-    const resData = [
-      { text: 'YES', votes: 3 },
-      { text: 'NO', votes: 100 }
-    ]
-    const wrapper = shallow(<BinaryPoll question='sdf' results={resData} />)
-    const spy = jest.spyOn(utils, 'manageVote')
-    wrapper.find('#binAnswer1').simulate('click')
-    expect(spy).toHaveBeenCalledTimes(1)
+  let wrapper: ShallowWrapper
+  let resData: any[]
 
-    //const mockCb = jest.fn()
-    //expect(manageVote).toHaveBeenCalledTimes(1)
-    //console.log(binaryPoll.find('#binAnswer0').debug())
-    //expect(mockCb.mock.calls.length).toEqual(1)
-  })
-  it('reners question when prop passed', () => {
-    const resData = [
-      { text: 'YES', votes: 3 },
-      { text: 'NO', votes: 100 }
+  beforeEach(() => {
+    resData = [
+      { text: 'YES', votes: 1, percentage: 33 },
+      { text: 'NO', votes: 2 }
     ]
-    const wrapper = shallow(
-      <BinaryPoll question='question' results={resData} />
-    )
+    wrapper = shallow(<BinaryPoll question='question' results={resData} />)
+  })
+
+  it('counts right % value and adds percentage key if doesnt exist', () => {
+    expect(resData[1].percentage).toBeUndefined()
+    resData[0].votes++
+    utils.countPercentage(resData)
+    expect(resData[1].percentage).toEqual(50)
+  })
+
+  it('counts right % value and modifies data', () => {
+    expect(resData[0].percentage).toEqual(33)
+    // it's equal to click logic for this function
+    resData[0].votes++
+    utils.countPercentage(resData)
+    expect(resData[0].percentage).toEqual(50)
+  })
+
+  it('simulates the click on the answer', () => {
+    const spy = jest.spyOn(utils, 'manageVote')
+    wrapper.find('#binAnswer0').simulate('click')
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  it('renders question when prop is passed', () => {
     expect(wrapper.find('h1').text()).toEqual('question')
   })
 })

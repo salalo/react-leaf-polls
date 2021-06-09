@@ -71,4 +71,4 @@ function countPercentage(results: Result[]): void {
   results[1].percentage = Math.round((results[1].votes / sum) * 100)
 }
 
-export { manageVote }
+export { manageVote, countPercentage }
