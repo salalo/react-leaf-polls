@@ -33,6 +33,7 @@ const MultiplePoll = ({
         <div
           key={index}
           role='button'
+          id={'mulAnswer' + index}
           className={
             voted ? styles.answer : styles.answer_hover + ' ' + styles.answer
           }

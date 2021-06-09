@@ -76,4 +76,4 @@ function countPercentage(results: Result[]): void {
   }
 }
 
-export { manageVote }
+export { manageVote, countPercentage }
