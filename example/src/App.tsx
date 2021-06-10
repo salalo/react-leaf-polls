@@ -14,9 +14,9 @@ const resData2 = [
 ]
 
 const resData3 = [
-  { text: 'React', votes: 9 },
-  { text: 'Vue', votes: 7 },
-  { text: 'Angular', votes: 2 }
+  { text: 'React', votes: [2, 1, 0] },
+  { text: 'Vue', votes: [4, 5, 2] },
+  { text: 'Angular', votes: [0, 3, 1] }
 ]
 
 const themeData = {
