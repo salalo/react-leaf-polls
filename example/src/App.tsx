@@ -13,6 +13,12 @@ const resData2 = [
   { text: 'Angular', votes: 2 }
 ]
 
+const resData3 = [
+  { text: 'React', votes: 9 },
+  { text: 'Vue', votes: 7 },
+  { text: 'Angular', votes: 2 }
+]
+
 const themeData = {
   textColor: '#19181f',
   mainColor: '#00B87B',
@@ -45,6 +51,13 @@ const App = () => {
         type='multiple'
         question='Pick your favorite framework.'
         results={resData2}
+        theme={themeData}
+        onVote={vote}
+      />
+      <LeafPoll
+        type='order'
+        question='The question'
+        results={resData3}
         theme={themeData}
         onVote={vote}
       />

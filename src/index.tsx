@@ -4,10 +4,11 @@ import {
   MultiplePoll,
   MultiplePollProps
 } from './components/MultiplePoll/MultiplePoll'
+import { OrderPoll, OrderPollProps } from './components/OrderPoll/OrderPoll'
 import { Result } from './types/result'
 
-interface Props extends BinaryPollProps, MultiplePollProps {
-  type: 'binary' | 'multiple'
+interface Props extends BinaryPollProps, MultiplePollProps, OrderPollProps {
+  type: 'binary' | 'multiple' | 'order'
 }
 
 const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
@@ -18,8 +19,15 @@ const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
       theme={theme}
       onVote={onVote}
     />
-  ) : (
+  ) : type === 'multiple' ? (
     <MultiplePoll
+      question={question}
+      results={results}
+      theme={theme}
+      onVote={onVote}
+    />
+  ) : (
+    <OrderPoll
       question={question}
       results={results}
       theme={theme}
