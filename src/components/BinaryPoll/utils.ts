@@ -8,7 +8,7 @@ function manageVote(
   index: number,
   refs: RefObject<HTMLDivElement>[]
 ): void {
-  item.votes++
+  if (typeof item.votes === 'number') item.votes++
   countPercentage(results)
   animateAnswers(index, results, refs)
 }
@@ -65,10 +65,15 @@ function animateAnswers(
 }
 
 function countPercentage(results: Result[]): void {
-  const sum: number = results[0].votes + results[1].votes
+  if (
+    typeof results[0].votes === 'number' &&
+    typeof results[1].votes === 'number'
+  ) {
+    const sum: number = results[0].votes + results[1].votes
 
-  results[0].percentage = Math.round((results[0].votes / sum) * 100)
-  results[1].percentage = Math.round((results[1].votes / sum) * 100)
+    results[0].percentage = Math.round((results[0].votes / sum) * 100)
+    results[1].percentage = Math.round((results[1].votes / sum) * 100)
+  }
 }
 
 export { manageVote, countPercentage }

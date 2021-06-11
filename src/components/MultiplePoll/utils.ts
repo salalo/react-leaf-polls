@@ -9,7 +9,7 @@ function manageVote(
   refs: MutableRefObject<RefObject<HTMLDivElement>[]>,
   theme?: Theme
 ): void {
-  item.votes++
+  if (typeof item.votes === 'number') item.votes++
   countPercentage(results)
   animateAnswers(index, results, refs, theme)
 }
@@ -67,8 +67,10 @@ function countPercentage(results: Result[]): void {
   let sum: number = 0
 
   for (const result of results) {
-    votes.push(result.votes)
-    sum += result.votes
+    if (typeof result.votes === 'number') {
+      votes.push(result.votes)
+      sum += result.votes
+    }
   }
 
   for (let i = 0; i < votes.length; i++) {
