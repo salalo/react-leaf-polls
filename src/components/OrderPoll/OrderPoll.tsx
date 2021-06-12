@@ -18,6 +18,7 @@ interface OrderPollProps {
 
 const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
   const [localResults, setResults] = useState(results)
+
   const moveCard = useCallback(
     (dragIndex: number, hoverIndex: number) => {
       const dragCard = localResults[dragIndex]
@@ -40,7 +41,6 @@ const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
       {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
 
       <DndProvider backend={HTML5Backend}>
-        <div>
           {localResults.map((result, index) => (
             <Answer
               key={result.id}
@@ -51,7 +51,6 @@ const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
               moveCard={moveCard}
             />
           ))}
-        </div>
       </DndProvider>
     </article>
   )

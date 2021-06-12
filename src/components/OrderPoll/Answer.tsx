@@ -38,6 +38,7 @@ const Answer = ({ id, index, moveCard, theme, result }: AnswerProps) => {
     },
 
     hover(item: DragItem, monitor: DropTargetMonitor) {
+      // just for warning elimination and future use
       console.log(handlerId)
       if (!ref.current) {
         return
@@ -102,10 +103,13 @@ const Answer = ({ id, index, moveCard, theme, result }: AnswerProps) => {
   return (
     <div
       ref={ref}
-      className={styles.container}
+      className={styles.answer}
       style={{ alignItems: theme?.alignment, opacity }}
     >
-      {result.text}, {result.votes?.[0]}
+      <div className={styles.answerInner}>
+        <p style={{color: theme?.textColor}}>{result.text}</p>
+      </div>
+      <span style={{color: theme?.textColor}}>{result.votes?.[0]}</span>
     </div>
   )
 }
