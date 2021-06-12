@@ -35,8 +35,9 @@ function vote(item: Result, results: Result[]) {
 const App = () => {
   return (
     <div
+      // TODO: remove the styles
       style={{
-        margin: '300px auto',
+        margin: '0 auto',
         width: '500px'
       }}
     >
@@ -56,7 +57,7 @@ const App = () => {
       />
       <LeafPoll
         type='order'
-        question='The question'
+        question='Order as you wish.'
         results={resData3}
         theme={themeData}
         onVote={vote}

@@ -13,6 +13,7 @@ interface AnswerProps {
   result: Result
   theme?: Theme
   onVote?(item: Result, results: Result[]): void
+  genBgColor?: string
   moveCard: (dragIndex: number, hoverIndex: number) => void
 }
 
@@ -26,8 +27,9 @@ const ItemTypes = {
   CARD: 'card'
 }
 
-const Answer = ({ id, index, moveCard, theme, result }: AnswerProps) => {
+const Answer = ({ id, index, moveCard, theme, result, genBgColor }: AnswerProps) => {
   const ref = useRef<HTMLDivElement>(null)
+  // @ts-ignore
   const [{ handlerId }, drop] = useDrop({
     accept: ItemTypes.CARD,
 
@@ -39,7 +41,6 @@ const Answer = ({ id, index, moveCard, theme, result }: AnswerProps) => {
 
     hover(item: DragItem, monitor: DropTargetMonitor) {
       // just for warning elimination and future use
-      console.log(handlerId)
       if (!ref.current) {
         return
       }
@@ -81,6 +82,10 @@ const Answer = ({ id, index, moveCard, theme, result }: AnswerProps) => {
       // Time to actually perform the action
       moveCard(dragIndex, hoverIndex)
 
+      //console.log(parseInt(item.id) - 1, hoverIndex)
+      //if (parseInt(item.id) -1 !== hoverIndex) {
+      //ref.current.style.backgroundColor = "black"
+
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
@@ -98,13 +103,16 @@ const Answer = ({ id, index, moveCard, theme, result }: AnswerProps) => {
     })
   })
 
+  //const opacity = isDragging ? 0 : calcOpacity
   const opacity = isDragging ? 0 : 1
+
   drag(drop(ref))
+
   return (
     <div
       ref={ref}
       className={styles.answer}
-      style={{ alignItems: theme?.alignment, opacity }}
+      style={{ alignItems: theme?.alignment, backgroundColor: genBgColor, opacity }}
     >
       <div className={styles.answerInner}>
         <p style={{color: theme?.textColor}}>{result.text}</p>

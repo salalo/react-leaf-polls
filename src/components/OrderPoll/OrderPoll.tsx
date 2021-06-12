@@ -33,6 +33,16 @@ const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
     },
     [localResults]
   )
+
+  const genBgColor = (index: number, hex: string = ''): string => {
+    const alpha = Math.abs(index - localResults.length) / localResults.length
+    const r = parseInt(hex.slice(1, 3), 16)
+    const g = parseInt(hex.slice(3, 5), 16)
+    const b = parseInt(hex.slice(5, 7), 16)
+
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')'
+  }
+
   return (
     <article
       className={styles.container}
@@ -41,16 +51,17 @@ const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
       {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
 
       <DndProvider backend={HTML5Backend}>
-          {localResults.map((result, index) => (
-            <Answer
-              key={result.id}
-              id={result.id}
-              index={index}
-              theme={theme}
-              result={result}
-              moveCard={moveCard}
-            />
-          ))}
+        {localResults.map((result, index) => (
+          <Answer
+            key={result.id}
+            id={result.id}
+            index={index}
+            theme={theme}
+            result={result}
+            moveCard={moveCard}
+            genBgColor={genBgColor(index, theme?.mainColor)}
+          />
+        ))}
       </DndProvider>
     </article>
   )
