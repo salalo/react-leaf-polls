@@ -11,10 +11,10 @@ interface AnswerProps {
   id: any
   index: number
   result: Result
+  genBgColor: string
+  moveCard: (dragIndex: number, hoverIndex: number) => void
   theme?: Theme
   onVote?(item: Result, results: Result[]): void
-  genBgColor?: string
-  moveCard: (dragIndex: number, hoverIndex: number) => void
 }
 
 interface DragItem {
@@ -80,6 +80,7 @@ const Answer = ({ id, index, moveCard, theme, result, genBgColor }: AnswerProps)
       }
 
       // Time to actually perform the action
+      item.index = hoverIndex
       moveCard(dragIndex, hoverIndex)
 
       //console.log(parseInt(item.id) - 1, hoverIndex)
@@ -90,7 +91,6 @@ const Answer = ({ id, index, moveCard, theme, result, genBgColor }: AnswerProps)
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
-      item.index = hoverIndex
     }
   })
   const [{ isDragging }, drag] = useDrag({
@@ -103,7 +103,6 @@ const Answer = ({ id, index, moveCard, theme, result, genBgColor }: AnswerProps)
     })
   })
 
-  //const opacity = isDragging ? 0 : calcOpacity
   const opacity = isDragging ? 0 : 1
 
   drag(drop(ref))

@@ -17,30 +17,44 @@ interface OrderPollProps {
 }
 
 const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
-  const [localResults, setResults] = useState(results)
+  const [stackedResults, setStackedResults] = useState(results)
 
   const moveCard = useCallback(
     (dragIndex: number, hoverIndex: number) => {
-      const dragCard = localResults[dragIndex]
-      setResults(
-        update(localResults, {
+      const dragCard = stackedResults[dragIndex]
+      setStackedResults(
+        update(stackedResults, {
           $splice: [
             [dragIndex, 1],
             [hoverIndex, 0, dragCard]
           ]
         })
       )
+      manageVote(stackedResults)
     },
-    [localResults]
+    [stackedResults]
   )
 
   const genBgColor = (index: number, hex: string = ''): string => {
-    const alpha = Math.abs(index - localResults.length) / localResults.length
+    const alpha =
+      Math.abs(index - stackedResults.length) / stackedResults.length
     const r = parseInt(hex.slice(1, 3), 16)
     const g = parseInt(hex.slice(3, 5), 16)
     const b = parseInt(hex.slice(5, 7), 16)
 
     return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + alpha + ')'
+  }
+
+  const manageVote = (results: Result[]): any => {
+    console.log(results)
+    //0: id: 1, voted: [1st place, 2nd place, 3rd place], text: ""
+    //
+    // stackedResults stores both the order and content thus it's all needed?
+    //
+    // get the current order because user might finish whenever he wants
+    // no move also counts as a vote
+    //
+    // should there be a button for confirming the vote?
   }
 
   return (
@@ -51,7 +65,7 @@ const OrderPoll = ({ question, results, theme }: OrderPollProps) => {
       {question && <h1 style={{ color: theme?.textColor }}>{question}</h1>}
 
       <DndProvider backend={HTML5Backend}>
-        {localResults.map((result, index) => (
+        {stackedResults.map((result, index) => (
           <Answer
             key={result.id}
             id={result.id}
