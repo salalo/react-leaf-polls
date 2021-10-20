@@ -12,9 +12,7 @@
     "node": ">=10"
   },
   "jest": {
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "transform": {
       "^.+\\.(ts|tsx|js|jsx)$": "ts-jest"
     },
@@ -51,7 +49,7 @@
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": "^16.0.0"
+    "react": ">=16"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -96,7 +94,5 @@
     "ts-jest": "^27.0.3",
     "typescript": "^3.9.9"
   },
-  "files": [
-    "dist"
-  ]
+  "files": ["dist"]
 }
