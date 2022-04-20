@@ -5,60 +5,66 @@ import { Theme } from '../../types/theme'
 function manageVote(
   results: Result[],
   item: Result,
-  index: number,
   refs: MutableRefObject<RefObject<HTMLDivElement>[]>,
   theme?: Theme
 ): void {
   item.votes++
   countPercentage(results)
-  animateAnswers(index, results, refs, theme)
+  animateAnswers(results, refs, theme, item.id)
 }
 
 function animateAnswers(
-  index: number,
   results: Result[],
   refs: MutableRefObject<RefObject<HTMLDivElement>[]>,
-  theme?: Theme
+  theme?: Theme,
+  index?: number
 ): void {
   const answers: HTMLElement[] = []
-  const restOfAnswersIndexes: number[] = []
+  let restOfAnswers: Result[] = []
 
-  for (let i = 0; i < results.length; i++) {
-    if (i !== index) restOfAnswersIndexes.push(i)
-    const answerBuffer: HTMLElement | null = refs.current[i].current
+  for (const result of results) {
+    if (index !== undefined) {
+      result.id !== index && restOfAnswers.push(result)
+    } else {
+      restOfAnswers = results
+    }
+    const answerBuffer: HTMLElement | null = refs.current[result.id].current
     answerBuffer && answers.push(answerBuffer)
   }
 
-  // animate clicked answer
-  answers[index].animate(
-    [
-      { width: 0, easing: 'ease-out', backgroundColor: 'white' },
-      {
-        width: `${results[index].percentage}%`,
-        easing: 'ease-out',
-        backgroundColor: `${theme?.mainColor}`
-      }
-    ],
-    500
-  )
-  answers[index].style.width = `${results[index].percentage}%`
-  if (theme?.mainColor) answers[index].style.backgroundColor = theme?.mainColor
-
-  // animate rest of answers (not clicked)
-  for (const i of restOfAnswersIndexes) {
-    answers[i].animate(
+  if (index !== undefined) {
+    // animate clicked answer
+    answers[index].animate(
       [
         { width: 0, easing: 'ease-out', backgroundColor: 'white' },
         {
-          width: `${results[i].percentage}%`,
+          width: `${results[index].percentage}%`,
+          easing: 'ease-out',
+          backgroundColor: `${theme?.mainColor}`
+        }
+      ],
+      500
+    )
+    answers[index].style.width = `${results[index].percentage}%`
+    if (theme?.mainColor)
+      answers[index].style.backgroundColor = theme?.mainColor
+  }
+
+  // animate rest of answers (not clicked)
+  for (const ans of restOfAnswers) {
+    answers[ans.id].animate(
+      [
+        { width: 0, easing: 'ease-out', backgroundColor: 'white' },
+        {
+          width: `${ans.percentage}%`,
           easing: 'ease-out',
           backgroundColor: '#efefef'
         }
       ],
       500
     )
-    answers[i].style.width = `${results[i].percentage}%`
-    answers[i].style.backgroundColor = '#efefef'
+    answers[ans.id].style.width = `${ans.percentage}%`
+    answers[ans.id].style.backgroundColor = '#efefef'
   }
 }
 
@@ -76,4 +82,4 @@ function countPercentage(results: Result[]): void {
   }
 }
 
-export { manageVote, countPercentage }
+export { manageVote, countPercentage, animateAnswers }
