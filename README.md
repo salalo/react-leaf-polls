@@ -32,9 +32,9 @@ import 'react-leaf-polls/dist/index.css'
 
 // Persistent data array (typically fetched from the server)
 const resData = [
-  { text: 'Answer 1', votes: 0 },
-  { text: 'Answer 2', votes: 0 },
-  { text: 'Answer 3', votes: 0 }
+  { id: 0, text: 'Answer 1', votes: 0 },
+  { id: 1, text: 'Answer 2', votes: 0 },
+  { id: 2, text: 'Answer 3', votes: 0 }
 ]
 
 // Object keys may vary on the poll type (see the 'Theme options' table below)
@@ -58,6 +58,7 @@ const App = () => {
       results={resData}
       theme={customTheme}
       onVote={vote}
+      isVoted={false}
     />
   )
 }
@@ -71,7 +72,8 @@ const App = () => {
 | question |                     String                     |    ✖     |                         | Question visible on top of the poll. Invisible if not set.                                                                                                                                                                                                     |
 | results  | Array of objects with keys "text" and "votes". |    ✔     |                         | Results data is visible to the user after the vote. <br> Should be stored permanently! Usually red and wrote to the persistent storage source. <br> Array is modified every time user votes by incrementing the "votes" value and adding "percentage" element. |
 | theme    |       Object <br>More in the table below       |    ✖     | More in the table below | Theme allows you to customize the look and feel of given poll. Depending on poll type there are different options.                                                                                                                                             |
-| onVote   |                    function                    |    ✖     |                         | Callback function running when user picks the answer. Returns the clicked item's and whole results modified object as arguments.                                                                                                                               |
+| isVoted  |                    Boolean                     |    ✖     |          false          | When set to true, poll will show the results by default on mount and user won't be able to vote. Might be helpful when we want to keep showing results on every rerender after user has voted.                                                                 |
+| onVote   |                    Function                    |    ✖     |                         | Callback function running when user picks the answer. Returns the clicked item's and whole results modified object as arguments.                                                                                                                               |
 
 ### Theme options
 
