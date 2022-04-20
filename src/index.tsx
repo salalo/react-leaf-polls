@@ -10,13 +10,21 @@ interface Props extends BinaryPollProps, MultiplePollProps {
   type: 'binary' | 'multiple'
 }
 
-const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
+const LeafPoll = ({
+  type,
+  question,
+  results,
+  theme,
+  onVote,
+  isVoted
+}: Props) => {
   return type === 'binary' ? (
     <BinaryPoll
       question={question}
       results={results}
       theme={theme}
       onVote={onVote}
+      isVoted={isVoted}
     />
   ) : (
     <MultiplePoll
@@ -24,6 +32,7 @@ const LeafPoll = ({ type, question, results, theme, onVote }: Props) => {
       results={results}
       theme={theme}
       onVote={onVote}
+      isVoted={isVoted}
     />
   )
 }
