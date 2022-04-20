@@ -1,6 +1,6 @@
-import React, { useState, useRef, RefObject } from 'react'
+import React, { useState, useEffect, useRef, RefObject } from 'react'
 import styles from './BinaryPoll.module.css'
-import { manageVote } from './utils'
+import { manageVote, countPercentage, animateAnswers } from './utils'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
 
@@ -9,11 +9,18 @@ interface BinaryPollProps {
   question?: string
   results: Result[]
   theme?: Theme
+  isVoted?: boolean
   onVote?(item: Result, results: Result[]): void
 }
 
-const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
-  const [voted, setVoted] = useState<boolean>(false)
+const BinaryPoll = ({
+  question,
+  results,
+  theme,
+  onVote,
+  isVoted = false
+}: BinaryPollProps) => {
+  const [voted, setVoted] = useState<boolean>(isVoted)
   const answersContainer = useRef<HTMLDivElement>(null)
   const answer0 = useRef<HTMLDivElement>(null)
   const answer1 = useRef<HTMLDivElement>(null)
@@ -22,6 +29,13 @@ const BinaryPoll = ({ question, results, theme, onVote }: BinaryPollProps) => {
     answer1,
     answersContainer
   ]
+
+  useEffect(() => {
+    if (isVoted) {
+      countPercentage(results)
+      animateAnswers(0, results, allRefs)
+    }
+  }, [isVoted])
 
   return (
     <article
