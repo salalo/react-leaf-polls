@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, createRef, RefObject } from 'react'
 import styles from './MultiplePoll.module.css'
 import { manageVote, countPercentage, animateAnswers } from './utils'
+//import { manageVote } from './utils'
 import type { Result } from '../../types/result'
 import type { Theme } from '../../types/theme'
 
@@ -17,9 +18,9 @@ const MultiplePoll = ({
   results,
   theme,
   onVote,
-  isVoted = false
+  isVoted
 }: MultiplePollProps) => {
-  const [voted, setVoted] = useState<boolean>(isVoted)
+  const [voted, setVoted] = useState<boolean>(false)
   const answerRefs = useRef<RefObject<HTMLDivElement>[]>(
     results.map(() => createRef<HTMLDivElement>())
   )
@@ -28,6 +29,7 @@ const MultiplePoll = ({
     if (isVoted) {
       countPercentage(results)
       animateAnswers(results, answerRefs)
+      setVoted(true)
     }
   }, [])
 

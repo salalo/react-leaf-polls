@@ -16,7 +16,7 @@ const LeafPoll = ({
   results,
   theme,
   onVote,
-  isVoted
+  isVoted = false
 }: Props) => {
   return type === 'binary' ? (
     <BinaryPoll
