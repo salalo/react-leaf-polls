@@ -3,14 +3,14 @@ import { LeafPoll, Result } from 'react-leaf-polls'
 import 'react-leaf-polls/dist/index.css'
 
 const resData = [
-  { text: 'YES', votes: 3 },
-  { text: 'NO', votes: 100 }
+  { id: 0, text: 'YES', votes: 3 },
+  { id: 1, text: 'NO', votes: 10 }
 ]
 
 const resData2 = [
-  { text: 'React', votes: 9 },
-  { text: 'Vue', votes: 7 },
-  { text: 'Angular', votes: 2 }
+  { id: 0, text: 'React', votes: 9 },
+  { id: 1, text: 'Vue', votes: 7 },
+  { id: 2, text: 'Angular', votes: 2 }
 ]
 
 const themeData = {
@@ -40,10 +40,11 @@ const App = () => {
         results={resData}
         theme={themeData}
         onVote={vote}
+        isVoted={true}
       />
       <LeafPoll
         type='multiple'
-        question='Pick your favorite framework.'
+        question='Pick your favourite framework.'
         results={resData2}
         theme={themeData}
         onVote={vote}
