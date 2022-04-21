@@ -40,6 +40,7 @@ const App = () => {
         results={resData}
         theme={themeData}
         onVote={vote}
+        isVoted={true}
       />
       <LeafPoll
         type='multiple'
@@ -47,7 +48,6 @@ const App = () => {
         results={resData2}
         theme={themeData}
         onVote={vote}
-        isVoted={true}
       />
     </div>
   )
