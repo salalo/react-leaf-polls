@@ -10,6 +10,7 @@ interface MultiplePollProps {
   results: Result[]
   theme?: Theme
   isVoted?: boolean
+  isVotedId?: number
   onVote?(item: Result, results: Result[]): void
 }
 
@@ -18,7 +19,8 @@ const MultiplePoll = ({
   results,
   theme,
   onVote,
-  isVoted
+  isVoted,
+  isVotedId,
 }: MultiplePollProps) => {
   const [voted, setVoted] = useState<boolean>(false)
   const answerRefs = useRef<RefObject<HTMLDivElement>[]>(
@@ -28,7 +30,7 @@ const MultiplePoll = ({
   useEffect(() => {
     if (isVoted) {
       countPercentage(results)
-      animateAnswers(results, answerRefs)
+      animateAnswers(results, answerRefs, theme, undefined, isVotedId)
       setVoted(true)
     }
   }, [])
