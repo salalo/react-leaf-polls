@@ -48,6 +48,17 @@ const App = () => {
         results={resData2}
         theme={themeData}
         onVote={vote}
+        isVoted={false}
+      />
+      <h2>isVoted w/ id for colouring (only for 'multiple')</h2>
+      <LeafPoll
+        type='multiple'
+        question='Pick your favourite framework.'
+        results={resData2}
+        theme={themeData}
+        onVote={vote}
+        isVoted={true}
+        isVotedId={1}
       />
     </div>
   )

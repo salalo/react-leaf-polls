@@ -17,7 +17,8 @@ function animateAnswers(
   results: Result[],
   refs: MutableRefObject<RefObject<HTMLDivElement>[]>,
   theme?: Theme,
-  index?: number
+  index?: number,
+  isVotedId?: number
 ): void {
   const answers: HTMLElement[] = []
   let restOfAnswers: Result[] = []
@@ -58,13 +59,17 @@ function animateAnswers(
         {
           width: `${ans.percentage}%`,
           easing: 'ease-out',
-          backgroundColor: '#efefef'
+          backgroundColor: `${
+            ans.id === isVotedId ? theme?.mainColor : '#efefef'
+          }`
         }
       ],
       500
     )
     answers[ans.id].style.width = `${ans.percentage}%`
-    answers[ans.id].style.backgroundColor = '#efefef'
+    answers[ans.id].style.backgroundColor = `${
+      ans.id === isVotedId ? theme?.mainColor : '#efefef'
+    }`
   }
 }
 
