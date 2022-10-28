@@ -83,7 +83,7 @@ function countPercentage(results: Result[]): void {
   }
 
   for (let i = 0; i < votes.length; i++) {
-    results[i].percentage = Math.floor((votes[i] / sum) * 100)
+    results[i].percentage = sum === 0 ? 0 : Math.floor((votes[i] / sum) * 100)
   }
 }
 
