@@ -6,7 +6,7 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 ![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/WojciechSala/react-leaf-polls/blob/master/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/salalo/react-leaf-polls/blob/master/LICENSE)
 
 # ![](binPoll.gif) ![](mulPoll.gif)
 
@@ -91,4 +91,4 @@ Theme is an object where no value is mandatory. Colors can get any type of color
 
 ## License
 
-MIT © [WojciechSala](https://github.com/WojciechSala)
+MIT © [salalo](https://github.com/salalo)
